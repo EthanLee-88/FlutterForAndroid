@@ -13,7 +13,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<View>(R.id.main_bt).setOnClickListener {
-            startActivity(FlutterActivity.withCachedEngine(FLUTTER_ENGINE_ID).build(this))
+            startActivity(
+                FlutterAc
+                    .withCachedEngine(FlutterAc::class.java, FLUTTER_ENGINE_ID)
+                    .build(this)
+            )
         }
     }
 }
