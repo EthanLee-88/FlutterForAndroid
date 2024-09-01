@@ -16,9 +16,14 @@ class FlutterApplication : Application() {
     override fun onCreate() {
         Log.d(TAG, "onCreate")
         super.onCreate()
+        initFlutterEngine()
+    }
+
+    private fun initFlutterEngine() {
         FlutterEngineCache.getInstance()
             .put(FLUTTER_ENGINE_ID, FlutterEngine(this).apply {
                 dartExecutor.executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault())
             })
     }
+
 }

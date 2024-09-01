@@ -10,8 +10,12 @@ class FlutterAc : FlutterActivity() {
         private const val TAG = "FlutterAc"
         private const val CHANNEL_ID = "com.channel.id"
         private const val METHOD_TO_FLUTTER = "method_to_flutter"
+
+        /**
+         * 初始化引擎
+         */
         fun withCachedEngine(
-            activityClass: Class<out FlutterActivity?>,
+            activityClass: Class<out FlutterAc?>,
             engineId: String,
         ): CachedEngineIntentBuilder {
             return CachedEngineIntentBuilder(activityClass, engineId)
@@ -20,13 +24,21 @@ class FlutterAc : FlutterActivity() {
 
     private var mMethodChannel: MethodChannel? = null
 
+
     /**
-     * 接收 Flutter消息
+     * 创建通信通道
      */
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         Log.d(TAG, "configureFlutterEngine")
         mMethodChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL_ID)
+        setOnMethodChannelListener();
+    }
+
+    /**
+     * 监听 Flutter消息
+     */
+    private fun setOnMethodChannelListener() {
         mMethodChannel?.apply {
             setMethodCallHandler { call, result ->
                 Log.d(TAG, "call = ${call.method} \n ${call.arguments}")
@@ -41,7 +53,7 @@ class FlutterAc : FlutterActivity() {
      */
     private fun sendMsgToFlutter() {
         mMethodChannel?.apply {
-            invokeMethod(METHOD_TO_FLUTTER, "send from native")
+            invokeMethod("method_get_home_page", "send from native")
             invokeMethod(METHOD_TO_FLUTTER,
                 mutableMapOf<String, String>().apply {
                     this["keyOne"] = "from native key"

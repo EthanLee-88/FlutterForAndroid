@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.blues.flutterapp.FlutterApplication.Companion.FLUTTER_ENGINE_ID
-import io.flutter.embedding.android.FlutterActivity
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
